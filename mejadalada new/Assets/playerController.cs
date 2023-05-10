@@ -8,7 +8,7 @@ public class playerController : MonoBehaviour
     public float directionSmooth = 0.1f;
     public Rigidbody2D rb;
     public Camera cam;
-    public CircleCollider2D collider2D;
+    public BoxCollider2D boxCollider;
     
     private Vector2 movement;
     private Vector2 mousePos;
