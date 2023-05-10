@@ -5,11 +5,14 @@ using UnityEngine;
 public class playerController : MonoBehaviour
 {
     public float playerSpeed = 5f;
+    public float directionSmooth = 0.1f;
     public Rigidbody2D rb;
     public Camera cam;
     public CircleCollider2D collider2D;
-    Vector2 movement;
-    Vector2 mousePos;
+    
+    private Vector2 movement;
+    private Vector2 mousePos;
+    private Vector2 effectiveDirection = Vector2.zero;
     void Update()
     {
         // input
@@ -22,9 +25,10 @@ public class playerController : MonoBehaviour
         // Movement
         if (movement.x == 0)
         {
-            rb.velocity = new Vector2(rb.velocity.x * 0.9f, rb.velocity.y);
+            rb.velocity = new Vector2(rb.velocity.x * 5f, rb.velocity.y);
         }
-        rb.MovePosition(rb.position + movement * playerSpeed * Time.fixedDeltaTime);
+        effectiveDirection = Vector2.Lerp(effectiveDirection, movement, directionSmooth);
+        rb.MovePosition(rb.position + effectiveDirection * playerSpeed * Time.fixedDeltaTime);
         // Rotation
         Vector2 lookDir = mousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
