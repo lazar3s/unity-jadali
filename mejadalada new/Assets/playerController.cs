@@ -27,8 +27,10 @@ public class playerController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x * 5f, rb.velocity.y);
         }
+        
         effectiveDirection = Vector2.Lerp(effectiveDirection, movement, directionSmooth);
         rb.MovePosition(rb.position + effectiveDirection * playerSpeed * Time.fixedDeltaTime);
+        
         // Rotation
         Vector2 lookDir = mousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
